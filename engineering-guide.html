@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineering Resource Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2340;
+    --navy-mid: #1a3a5c;
+    --steel: #2e5882;
+    --accent: #c8873a;
+    --accent-light: #f5e6d0;
+    --off-white: #f8f6f1;
+    --text: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --border: #ddd8cc;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--accent);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    color: var(--white);
+    font-size: 1.1rem;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-links a:hover {
+    color: var(--white);
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--navy);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(200,135,58,0.03) 40px,
+      rgba(200,135,58,0.03) 41px
+    );
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+  .hero-meta {
+    display: inline-flex;
+    gap: 2rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 1rem 2rem;
+  }
+  .hero-meta-item {
+    text-align: center;
+  }
+  .hero-meta-item .num {
+    display: block;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .hero-meta-item .label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* FRONT MATTER */
+  .front-matter {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .front-matter h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 2.5rem;
+  }
+  .fm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .fm-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  .fm-card h3 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin-bottom: 0.75rem;
+  }
+  .fm-card p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* TOC */
+  .toc-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toc-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .toc-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.5rem;
+  }
+  .toc-list li a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .toc-list li a:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--navy);
+  }
+  .toc-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    min-width: 28px;
+  }
+  .toc-text {
+    flex: 1;
+  }
+  .toc-text strong {
+    display: block;
+    font-weight: 500;
+    font-size: 0.88rem;
+  }
+  .toc-text span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* RESOURCES */
+  .resources-section {
+    padding: 4rem 0;
+  }
+  .resources-section > h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .resources-section > p {
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    font-size: 0.95rem;
+  }
+
+  .resource-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .resource-card:hover {
+    box-shadow: 0 4px 20px rgba(15,35,64,0.08);
+  }
+  .resource-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.75rem 2rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .resource-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 44px;
+    padding-top: 2px;
+  }
+  .resource-title-block h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .resource-url {
+    font-size: 0.8rem;
+    color: var(--steel);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .resource-url:hover { color: var(--accent); }
+  .resource-url::before {
+    content: '→';
+    font-size: 0.75rem;
+  }
+  .resource-tag {
+    margin-left: auto;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+  .resource-body {
+    padding: 1.75rem 2rem;
+  }
+  .resource-body p {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+  .resource-body p:last-child { margin-bottom: 0; }
+
+  .resource-tip {
+    background: #f0f6ff;
+    border-left: 3px solid var(--steel);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.25rem;
+    margin-top: 1.25rem;
+  }
+  .resource-tip-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin-bottom: 0.4rem;
+  }
+  .resource-tip p {
+    font-size: 0.88rem;
+    color: #2a4a6e;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .example-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.83rem;
+    color: var(--steel);
+    text-decoration: none;
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 0.85rem;
+    margin-top: 1rem;
+    transition: all 0.2s;
+  }
+  .example-link:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--navy);
+  }
+
+  /* PLACEHOLDER */
+  .placeholder-body {
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    margin: 1.5rem 2rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .placeholder-body p { color: var(--text-muted); margin: 0; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2.5rem 2rem;
+    font-size: 0.82rem;
+    border-top: 3px solid var(--accent);
+  }
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero { padding: 3.5rem 1.5rem 3rem; }
+    .hero-meta { gap: 1.25rem; padding: 0.85rem 1.25rem; }
+    .resource-header { flex-wrap: wrap; }
+    .resource-tag { margin-left: 0; }
+    .resource-num { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">Engineering Resource Guide</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#toc">Contents</a></li>
+      <li><a href="#resources">Resources</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="top" class="hero">
+  <p class="hero-eyebrow">Penn State Engineering</p>
+  <h1>An Online Resource Guide<br>for <em>Engineering Students</em></h1>
+  <p class="hero-sub">A curated collection of the most useful online tools, references, and professional resources for undergraduate engineering students.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="num">6</span>
+      <span class="label">Resources</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="num">5</span>
+      <span class="label">Categories</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="num">2025</span>
+      <span class="label">Current</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- FRONT MATTER -->
+  <section id="about" class="front-matter">
+    <p class="section-label">Front Matter</p>
+    <h2>About This Guide</h2>
+    <div class="fm-grid">
+      <div class="fm-card">
+        <h3>What's in the Guide</h3>
+        <p>Six carefully selected online resources covering reference tools, free courseware, professional organizations, structural calculators, materials databases, and career development platforms relevant to engineering undergrads.</p>
+      </div>
+      <div class="fm-card">
+        <h3>Who It's For</h3>
+        <p>Undergraduate engineering students at Penn State University Park, particularly those in or preparing for core engineering courses like Statics, Dynamics, Mechanics of Materials, and Thermodynamics.</p>
+      </div>
+      <div class="fm-card">
+        <h3>What It Assumes</h3>
+        <p>Readers have a basic familiarity with engineering concepts and are comfortable navigating websites independently. No prior knowledge of any specific platform covered in this guide is required.</p>
+      </div>
+      <div class="fm-card">
+        <h3>How It's Organized</h3>
+        <p>Resources are grouped by function: reference tools, learning resources, professional organizations, calculation software, databases, and career tools. Each entry includes a full abstract and usage tips.</p>
+      </div>
+      <div class="fm-card">
+        <h3>Tips for Using This Guide</h3>
+        <p>Use the table of contents to jump directly to a resource. Each abstract answers what the resource is, what's in it, how it helps you specifically, and how to use it efficiently. Start with the resources most relevant to your current coursework.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOC -->
+  <section id="toc" class="toc-section">
+    <p class="section-label">Navigation</p>
+    <h2>Table of Contents</h2>
+    <ul class="toc-list">
+      <li><a href="#r1">
+        <span class="toc-num">1</span>
+        <span class="toc-text">
+          <strong>The Engineering Toolbox</strong>
+          <span>Reference & Calculation</span>
+        </span>
+      </a></li>
+      <li><a href="#r2">
+        <span class="toc-num">2</span>
+        <span class="toc-text">
+          <strong>MIT OpenCourseWare</strong>
+          <span>Free Course Materials</span>
+        </span>
+      </a></li>
+      <li><a href="#r3">
+        <span class="toc-num">3</span>
+        <span class="toc-text">
+          <strong>ASCE</strong>
+          <span>Professional Organization</span>
+        </span>
+      </a></li>
+      <li><a href="#r4">
+        <span class="toc-num">4</span>
+        <span class="toc-text">
+          <strong>SkyCiv</strong>
+          <span>Structural Calculator</span>
+        </span>
+      </a></li>
+      <li><a href="#r5">
+        <span class="toc-num">5</span>
+        <span class="toc-text">
+          <strong>MatWeb</strong>
+          <span>Materials Database</span>
+        </span>
+      </a></li>
+      <li><a href="#r6">
+        <span class="toc-num">6</span>
+        <span class="toc-text">
+          <strong>Handshake</strong>
+          <span>Career Development</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources" class="resources-section">
+    <p class="section-label">The Resources</p>
+    <h2>Six Essential Sites for Engineering Students</h2>
+    <p>Each resource below is described with its content, relevance to Penn State engineering undergrads, and tips for getting the most out of it.</p>
+
+    <!-- RESOURCE 1 -->
+    <div id="r1" class="resource-card">
+      <div class="resource-header">
+        <span class="resource-num">1</span>
+        <div class="resource-title-block">
+          <h3>The Engineering Toolbox</h3>
+          <a href="https://www.engineeringtoolbox.com" class="resource-url" target="_blank">engineeringtoolbox.com</a>
+        </div>
+        <span class="resource-tag">Reference</span>
+      </div>
+      <div class="resource-body">
+        <p>The Engineering Toolbox is an invaluable tool made for engineers and provides a wide range of tools, calculators, and information resources. This website can be used for a multitude of subjects including fluid mechanics, material properties, HVAC systems, electrical engineering, and more. It can be used as a faster and more effective version of a textbook as it is searchable, so finding that formula or constant doesn't take fifteen minutes.</p>
+        <p>For Penn State students this website will be most helpful during the required mechanics classes including EMCH 211 (Statics), EMCH 212 (Dynamics), and EMCH 213 (Strength of Materials). Another class I have used Engineering Toolbox for is Thermodynamics to find specific heats and enthalpy ratios for certain materials. That's the great thing about this website — when I need to know the shear stress formula or the Elastic Modulus of a material, Engineering Toolbox gets me there in seconds. The site presents data as stand-alone reference material rather than guided lessons, so it works best as a lookup tool rather than a learning resource.</p>
+        <div class="resource-tip">
+          <p class="resource-tip-label">How to use it efficiently</p>
+          <p>Go straight to the search bar and search "Elastic Modulus," or "Shear Stress Formula." Each page will include some combination of tables, graphs, and formulas. It will also have links to related concepts if the problem is covering multiple topics.</p>
+        </div>
+        <a href="https://www.engineeringtoolbox.com/young-modulus-d_417.html" class="example-link" target="_blank">Example: Young's Modulus page</a>
+      </div>
+    </div>
+
+    <!-- RESOURCE 2 PLACEHOLDER -->
+    <div id="r2" class="resource-card">
+      <div class="resource-header">
+        <span class="resource-num">2</span>
+        <div class="resource-title-block">
+          <h3>MIT OpenCourseWare — Engineering</h3>
+          <a href="https://ocw.mit.edu/search/?d=Engineering" class="resource-url" target="_blank">ocw.mit.edu</a>
+        </div>
+        <span class="resource-tag">Courseware</span>
+      </div>
+      <div class="placeholder-body">
+        <p>Abstract coming soon — drop your draft here.</p>
+      </div>
+    </div>
+
+    <!-- RESOURCE 3 PLACEHOLDER -->
+    <div id="r3" class="resource-card">
+      <div class="resource-header">
+        <span class="resource-num">3</span>
+        <div class="resource-title-block">
+          <h3>American Society of Civil Engineers (ASCE)</h3>
+          <a href="https://www.asce.org" class="resource-url" target="_blank">asce.org</a>
+        </div>
+        <span class="resource-tag">Professional Org</span>
+      </div>
+      <div class="placeholder-body">
+        <p>Abstract coming soon — drop your draft here.</p>
+      </div>
+    </div>
+
+    <!-- RESOURCE 4 PLACEHOLDER -->
+    <div id="r4" class="resource-card">
+      <div class="resource-header">
+        <span class="resource-num">4</span>
+        <div class="resource-title-block">
+          <h3>SkyCiv Structural Engineering Software</h3>
+          <a href="https://skyciv.com" class="resource-url" target="_blank">skyciv.com</a>
+        </div>
+        <span class="resource-tag">Calculator</span>
+      </div>
+      <div class="placeholder-body">
+        <p>Abstract coming soon — drop your draft here.</p>
+      </div>
+    </div>
+
+    <!-- RESOURCE 5 PLACEHOLDER -->
+    <div id="r5" class="resource-card">
+      <div class="resource-header">
+        <span class="resource-num">5</span>
+        <div class="resource-title-block">
+          <h3>MatWeb Material Property Database</h3>
+          <a href="https://www.matweb.com" class="resource-url" target="_blank">matweb.com</a>
+        </div>
+        <span class="resource-tag">Database</span>
+      </div>
+      <div class="placeholder-body">
+        <p>Abstract coming soon — drop your draft here.</p>
+      </div>
+    </div>
+
+    <!-- RESOURCE 6 PLACEHOLDER -->
+    <div id="r6" class="resource-card">
+      <div class="resource-header">
+        <span class="resource-num">6</span>
+        <div class="resource-title-block">
+          <h3>Handshake</h3>
+          <a href="https://joinhandshake.com" class="resource-url" target="_blank">joinhandshake.com</a>
+        </div>
+        <span class="resource-tag">Career</span>
+      </div>
+      <div class="placeholder-body">
+        <p>Abstract coming soon — drop your draft here.</p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<footer>
+  <strong>Engineering Resource Guide</strong> &nbsp;|&nbsp; Penn State University &nbsp;|&nbsp; Compiled for undergraduate engineering students
+</footer>
+
+</body>
+</html>
